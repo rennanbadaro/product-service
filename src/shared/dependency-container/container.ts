@@ -1,7 +1,9 @@
+import ProductController from '../../app/controllers/ProductController';
 import FetchProductsWithDiscount from '../../domain/product/use-cases/FetchProductsWithDiscount';
 import { ProductAdapter } from '../../infrastructure/adapters/ProductAdapter';
 import { ProductRepository } from '../../infrastructure/repositories/ProductRepository';
 import PostgreProvider from '../../infrastructure/storage/PostgreProvider';
+import Dependencies from './dependency.enum';
 
 class DependencyContainer {
   private readonly postgreProvider: PostgreProvider;
@@ -12,8 +14,11 @@ class DependencyContainer {
 
   private readonly fetchProductsWithDiscountUseCase: FetchProductsWithDiscount;
 
+  private readonly productController: ProductController;
+
   constructor() {
     this.postgreProvider = new PostgreProvider();
+
     this.productRepository = new ProductRepository(this.postgreProvider);
 
     this.productAdapter = new ProductAdapter(
@@ -25,6 +30,10 @@ class DependencyContainer {
 
     this.fetchProductsWithDiscountUseCase = new FetchProductsWithDiscount(
       this.productAdapter
+    );
+
+    this.productController = new ProductController(
+      this.fetchProductsWithDiscountUseCase
     );
   }
 
