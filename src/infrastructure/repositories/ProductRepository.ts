@@ -9,14 +9,14 @@ interface IProductRepository {
 class ProductRepository implements IProductRepository {
   private readonly dbConn: Knex;
 
-  constructor(private readonly dbProvider: DataProvider) {
+  constructor(dbProvider: DataProvider) {
     this.dbConn = dbProvider.getConnection();
   }
 
   async fetchAll() {
     const result = await this.dbConn.select('*').from('product');
 
-    return result.map(r => new Product(r))
+    return result.map(r => new Product(r));
   }
 }
 
