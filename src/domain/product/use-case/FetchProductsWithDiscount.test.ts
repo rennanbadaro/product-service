@@ -1,16 +1,16 @@
 import Product from '../Product';
 
 import FetchProductsWithDiscount from './FetchProductsWithDiscount';
-import ProductAdapter from '../../../infrastructure/adapters/ProductAdapter';
+import { ProductOutPort } from '../../../infrastructure/adapters/ProductAdapter';
 
 let usecase: FetchProductsWithDiscount;
-let adapter: ProductAdapter;
+let adapter: ProductOutPort;
 
 const productMock = new Product({
   id: 'id',
   priceInCents: 190,
   title: 'mock product',
-  description: 'some fake product'
+  description: 'some fake product',
 });
 
 describe('FetchProductsWithDiscount', () => {

@@ -1,9 +1,9 @@
-import ProductAdapter from '../../../infrastructure/adapters/ProductAdapter';
+import { ProductOutPort } from '../../../infrastructure/adapters/ProductAdapter';
 import Discount from '../Discount';
 import Product from '../Product';
 
 class FetchProductsWithDiscount {
-  constructor(private readonly productAdapter: ProductAdapter) {}
+  constructor(private readonly productAdapter: ProductOutPort) {}
 
   async execute(userId: string) {
     const products = await this.productAdapter.fetchProducts();
