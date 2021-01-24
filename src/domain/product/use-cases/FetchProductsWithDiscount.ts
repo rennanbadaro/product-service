@@ -17,7 +17,7 @@ class FetchProductsWithDiscount {
     return Promise.all(productsWithDiscountPromises);
   }
 
-  private applyDiscount(product: Product, discount: Discount) {
+  private applyDiscount(product: Product, discount: Discount | null) {
     if (discount === null) {
       return product;
     }
