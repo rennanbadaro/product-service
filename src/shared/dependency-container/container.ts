@@ -1,12 +1,21 @@
+import grpc from 'grpc';
+import env from 'env-var';
+
 import ProductController from '../../app/controllers/ProductController';
 import FetchProductsWithDiscount from '../../domain/product/use-cases/FetchProductsWithDiscount';
 import { ProductAdapter } from '../../infrastructure/adapters/ProductAdapter';
+import { DiscountServiceClient, IDiscountServiceClient } from '../../infrastructure/proto/discount_grpc_pb';
 import { ProductRepository } from '../../infrastructure/repositories/ProductRepository';
 import PostgreProvider from '../../infrastructure/storage/PostgreProvider';
 import Dependencies from './dependency.enum';
+import { GrpcClient } from '../../infrastructure/grpc/GrpcClient';
 
 class DependencyContainer {
   private readonly postgreProvider: PostgreProvider;
+
+  private readonly grpcClient: GrpcClient;
+
+  private readonly discountClient: IDiscountServiceClient;
 
   private readonly productRepository: ProductRepository;
 
@@ -21,10 +30,15 @@ class DependencyContainer {
 
     this.productRepository = new ProductRepository(this.postgreProvider);
 
+    this.discountClient = new DiscountServiceClient(
+      env.get('DISCOUNT_GRPC_ADDRESS').required().asString(),
+      grpc.credentials.createInsecure()
+    );
+
+    this.grpcClient = new GrpcClient(this.discountClient);
+
     this.productAdapter = new ProductAdapter(
-      {
-        getDiscount: () => Promise.resolve(null),
-      },
+      this.grpcClient,
       this.productRepository
     );
 
