@@ -14,7 +14,7 @@ class ProductRepository implements IProductRepository {
   }
 
   async fetchAll() {
-    const result = await this.dbConn.select('*').from('product');
+    const result = await this.dbConn.select('*').from('products');
 
     return result.map(r => new Product(r));
   }
