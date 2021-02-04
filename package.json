@@ -4,7 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "migrations:create": "node -r dotenv/config ./node_modules/.bin/knex migrate:make",
+    "migrations:up": "node -r dotenv/config ./node_modules/.bin/knex migrate:up",
+    "migrations:down": "node -r dotenv/config ./node_modules/.bin/knex migrate:rollback"
   },
   "keywords": [],
   "author": "",
