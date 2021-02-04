@@ -14,6 +14,10 @@ module.exports = {
     },
     migrations: {
       tableName: '_migrations',
+      directory: './db/migrations'
     },
+    seeds: {
+      directory: './db/dev-seeds'
+    }
   },
 };
