@@ -17,6 +17,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/change-case-object": "^2.0.0",
     "@types/jest": "^26.0.20",
     "@types/knex": "^0.16.1",
     "@types/koa": "^2.11.6",
@@ -45,6 +46,7 @@
   },
   "dependencies": {
     "@koa/router": "^10.0.0",
+    "change-case-object": "^2.0.0",
     "env-var": "^7.0.0",
     "grpc": "^1.24.4",
     "grpc-tools": "^1.10.0",

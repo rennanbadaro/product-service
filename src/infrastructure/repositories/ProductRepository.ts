@@ -1,4 +1,6 @@
 import Knex from 'knex';
+import { camelCase } from 'change-case-object';
+
 import Product from '../../domain/product/Product';
 import DataProvider from '../storage/DataProvider';
 
@@ -16,7 +18,7 @@ class ProductRepository implements IProductRepository {
   async fetchAll() {
     const result = await this.dbConn.select('*').from('products');
 
-    return result.map(r => new Product(r));
+    return result.map((r: Product) => new Product(camelCase(r) as Product));
   }
 }
 
