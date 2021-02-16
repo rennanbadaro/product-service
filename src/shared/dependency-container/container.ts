@@ -9,9 +9,17 @@ import { ProductRepository } from '../../infrastructure/repositories/ProductRepo
 import PostgreProvider from '../../infrastructure/storage/PostgreProvider';
 import Dependencies from './dependency.enum';
 import { GrpcClient } from '../../infrastructure/grpc/GrpcClient';
+import UserLogin from '../../domain/user/use-cases/UserLogin';
+import { UserAdapter, UserOutPort } from '../../infrastructure/adapters/UserAdapter';
+import UserController from '../../app/controllers/UserController';
+import { AuthService, IAuthService } from '../../domain/auth/AuthService';
+import { UserRepository } from '../../infrastructure/repositories/UserRepository';
+import RedisProvider from '../../infrastructure/storage/RedisProvider';
 
 class DependencyContainer {
   private readonly postgreProvider: PostgreProvider;
+
+  private readonly redisProvider: RedisProvider;
 
   private readonly grpcClient: GrpcClient;
 
@@ -25,8 +33,20 @@ class DependencyContainer {
 
   private readonly productController: ProductController;
 
+  private readonly userLoginUseCase: UserLogin;
+
+  private readonly userAdapter: UserOutPort;
+
+  private readonly userRepository: UserRepository;
+
+  private readonly userController: UserController;
+
+  private readonly authService: IAuthService;
+
   constructor() {
     this.postgreProvider = new PostgreProvider();
+
+    this.redisProvider = new RedisProvider();
 
     this.productRepository = new ProductRepository(this.postgreProvider);
 
@@ -49,6 +69,17 @@ class DependencyContainer {
     this.productController = new ProductController(
       this.fetchProductsWithDiscountUseCase
     );
+
+    this.userRepository = new UserRepository(this.postgreProvider);
+
+
+    this.userAdapter = new UserAdapter(this.userRepository, this.redisProvider);
+
+    this.authService = new AuthService();
+
+    this.userLoginUseCase = new UserLogin(this.authService, this.userAdapter);
+
+    this.userController = new UserController(this.userLoginUseCase);
   }
 
   get(dependency: Dependencies) {

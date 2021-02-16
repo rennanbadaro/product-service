@@ -1,4 +1,4 @@
-import { Context } from 'koa';
+import { Context, Next } from 'koa';
 import FetchProductsWithDiscount from '../../domain/product/use-cases/FetchProductsWithDiscount';
 
 class ProductController {
@@ -6,7 +6,7 @@ class ProductController {
     private readonly fetchProductsWithDiscountUseCase: FetchProductsWithDiscount
   ) {}
 
-  async fetchProductsWithDiscount(ctx: Context) {
+  async fetchProductsWithDiscount(ctx: Context, next: Next) {
     const { userId } = ctx;
 
     const result = await this.fetchProductsWithDiscountUseCase.execute(userId);
