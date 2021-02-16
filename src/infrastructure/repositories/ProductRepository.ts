@@ -12,7 +12,7 @@ class ProductRepository implements IProductRepository {
   private readonly dbConn: Knex;
 
   constructor(dbProvider: DataProvider) {
-    this.dbConn = dbProvider.getConnection();
+    this.dbConn = dbProvider.getConnection() as Knex;
   }
 
   async fetchAll() {

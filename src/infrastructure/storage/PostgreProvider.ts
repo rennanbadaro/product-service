@@ -1,6 +1,6 @@
 import Knex from 'knex';
 
-import dbConfig from './config';
+import storageConfig from './config';
 import DataProvider from './DataProvider';
 
 export default class PostgreProvider implements DataProvider {
@@ -20,11 +20,11 @@ export default class PostgreProvider implements DataProvider {
       PostgreProvider.connection = Knex({
         client: 'pg',
         connection: {
-          user: dbConfig.connection.user,
-          password: dbConfig.connection.password,
-          host: dbConfig.connection.host,
-          port: dbConfig.connection.port,
-          database: dbConfig.connection.database,
+          user: storageConfig.db.user,
+          password: storageConfig.db.password,
+          host: storageConfig.db.host,
+          port: storageConfig.db.port,
+          database: storageConfig.db.database,
         },
         acquireConnectionTimeout: 2000,
       });
