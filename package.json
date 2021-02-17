@@ -4,12 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "build": "./node_modules/.bin/tsc --build tsconfig.json",
+    "start": "node build/src/app",
     "start:dev": "node -r dotenv/config -r ts-node/register src/app",
     "test": "jest",
     "dev:seed:create": "node -r dotenv/config ./node_modules/.bin/knex seed:make --env development",
     "dev:seed:run": "node -r dotenv/config ./node_modules/.bin/knex seed:run --env development",
     "migrations:create": "node -r dotenv/config ./node_modules/.bin/knex migrate:make",
-    "migrations:up": "node -r dotenv/config ./node_modules/.bin/knex migrate:up",
     "migrations:up:all": "node -r dotenv/config ./node_modules/.bin/knex migrate:latest",
     "migrations:down": "node -r dotenv/config ./node_modules/.bin/knex migrate:rollback",
     "migrations:down:all": "node -r dotenv/config ./node_modules/.bin/knex migrate:rollback --all true"
