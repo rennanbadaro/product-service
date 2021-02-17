@@ -7,9 +7,9 @@ class ProductController {
   ) {}
 
   async fetchProductsWithDiscount(ctx: Context, next: Next) {
-    const { userId } = ctx;
+    const { user } = ctx;
 
-    const result = await this.fetchProductsWithDiscountUseCase.execute(userId);
+    const result = await this.fetchProductsWithDiscountUseCase.execute(user.id);
 
     ctx.response.status = 200;
     ctx.response.body = result;
