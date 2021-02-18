@@ -1,7 +1,7 @@
-import Product from '../Product';
+import Product from '../../../../../src/domain/product/Product';
 
-import FetchProductsWithDiscount from './FetchProductsWithDiscount';
-import { ProductOutPort } from '../../../infrastructure/adapters/ProductAdapter';
+import FetchProductsWithDiscount from '../../../../../src/domain/product/use-cases/FetchProductsWithDiscount';
+import { ProductOutPort } from '../../../../../src/infrastructure/adapters/ProductAdapter';
 
 let usecase: FetchProductsWithDiscount;
 let adapter: ProductOutPort;

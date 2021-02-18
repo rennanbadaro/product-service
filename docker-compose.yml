@@ -1,0 +1,36 @@
+version: '3.4'
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: dev-Dockerfile
+    restart: always
+    env_file: .env
+    container_name: hasher-store-product-service
+    network_mode: host
+    depends_on:
+      - db
+      - redis
+
+  db:
+    restart: always
+    image: postgres
+    env_file: .env
+    container_name: hasher-store-postgre-db
+    network_mode: host
+    environment:
+      - POSTGRES_USER=${DB_USERNAME}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_NAME}
+
+  redis:
+    restart: always
+    image: redis
+    env_file: .env
+    network_mode: host
+    container_name: hasher-store-redis
+
+networks:
+  hasher-store-network:
+    driver: bridge

@@ -1,0 +1,12 @@
+FROM node:12-alpine
+
+USER root
+WORKDIR /app
+RUN mkdir -p /app/node_modules /app/src && chown -R node:node /app
+
+COPY . .
+
+RUN npm i
+RUN npm rebuild
+
+CMD ["npm", "run", "start:docker:dev"]
