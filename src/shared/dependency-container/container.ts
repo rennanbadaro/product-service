@@ -44,7 +44,7 @@ class DependencyContainer {
   private readonly authService: IAuthService;
 
   constructor() {
-    this.postgreProvider = new PostgreProvider();
+    this.postgreProvider = PostgreProvider.getInstance();
 
     this.redisProvider = new RedisProvider();
 
