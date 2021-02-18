@@ -2,10 +2,7 @@ import grpc from 'grpc';
 import { promisify } from 'util';
 
 import Discount from '../../domain/product/Discount';
-import {
-  DiscountServiceClient,
-  IDiscountServiceClient,
-} from '../proto/discount_grpc_pb';
+import { IDiscountServiceClient } from '../proto/discount_grpc_pb';
 import { GetDiscountRequest, GetDiscountResponse } from '../proto/discount_pb';
 
 interface IGrpcClient {
@@ -20,20 +17,18 @@ class GrpcClient implements IGrpcClient {
     request.setUserId(userId);
     request.setProductId(productId);
 
-    const get = promisify(this.discountClient.getDiscount).bind(
-      this.discountClient
-    );
+    return new Promise(resolve => {
+      this.discountClient.getDiscount(request, (err, resp) => {
+        if (err) {
+          console.error(err);
 
-    let result: GetDiscountResponse;
-    try {
-      result = (await get(request)) as GetDiscountResponse;
-    } catch (err) {
-      console.error(err);
+          return resolve(null);
+        }
 
-      return null;
-    }
-
-    return result.toObject().discount || null;
+        // @ts-ignore
+        return resolve(resp.toObject().discount);
+      });
+    }) as Promise<Discount | null>;
   }
 }
 
