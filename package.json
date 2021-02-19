@@ -8,13 +8,16 @@
     "start:dev": "node -r dotenv/config -r ts-node/register src/app",
     "start:docker:dev": "npm run migrations:up && npm run dev:seed:run && node -r dotenv/config -r ts-node/register src/app",
     "test:unit": "node_modules/.bin/jest tests/unit",
-    "test:integration": "node_modules/.bin/jest tests/integration --setupFiles dotenv/config",
+    "test:integration": "docker-compose up -d -- db redis && sleep 5 && npm run migrations:up && npm run dev:seed:run && node_modules/.bin/jest tests/integration --setupFiles dotenv/config",
     "dev:seed:create": "node -r dotenv/config ./node_modules/.bin/knex seed:make --env development",
     "dev:seed:run": "node -r dotenv/config ./node_modules/.bin/knex seed:run --env development",
     "migrations:create": "node -r dotenv/config ./node_modules/.bin/knex migrate:make",
     "migrations:up": "node -r dotenv/config ./node_modules/.bin/knex migrate:latest",
     "migrations:down": "node -r dotenv/config ./node_modules/.bin/knex migrate:rollback",
-    "migrations:down:all": "node -r dotenv/config ./node_modules/.bin/knex migrate:rollback --all true"
+    "migrations:down:all": "node -r dotenv/config ./node_modules/.bin/knex migrate:rollback --all true",
+    "dev:docker:all": "docker-compose up",
+    "dev:docker:infra": "docker-compose up -- db redis",
+    "dev:docker:down": "docker-compose down"
   },
   "keywords": [],
   "author": "",
