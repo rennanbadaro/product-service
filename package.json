@@ -8,7 +8,7 @@
     "start:dev": "node -r dotenv/config -r ts-node/register src/app",
     "start:docker:dev": "npm run migrations:up && npm run dev:seed:run && node -r dotenv/config -r ts-node/register src/app",
     "test:unit": "node_modules/.bin/jest tests/unit",
-    "test:integration": "docker-compose up -d -- db redis && sleep 5 && npm run migrations:up && npm run dev:seed:run && node_modules/.bin/jest tests/integration --setupFiles dotenv/config && docker-compose down",
+    "test:integration": "docker-compose down && docker-compose up -d -- db redis && sleep 5 && npm run migrations:up && npm run dev:seed:run && node_modules/.bin/jest tests/integration --setupFiles dotenv/config && docker-compose down",
     "dev:seed:create": "node -r dotenv/config ./node_modules/.bin/knex seed:make --env development",
     "dev:seed:run": "node -r dotenv/config ./node_modules/.bin/knex seed:run --env development",
     "migrations:create": "node -r dotenv/config ./node_modules/.bin/knex migrate:make",
