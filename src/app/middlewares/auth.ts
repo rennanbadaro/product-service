@@ -3,8 +3,8 @@ import { Context, Next } from 'koa';
 import { AuthService } from '../../domain/auth/AuthService';
 import RedisProvider from '../../infrastructure/storage/RedisProvider';
 
-import dependencyContainer from '../../shared/dependency-container/container';
-import dependencyEnum from '../../shared/dependency-container/dependency.enum';
+import dependencyContainer from '../dependency-container/container';
+import dependencyEnum from '../dependency-container/dependency.enum';
 
 const authService = dependencyContainer.get(
   dependencyEnum.AUTH_SERVICE

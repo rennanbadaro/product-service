@@ -1,7 +1,7 @@
 import { ProductAdapter } from '../../src/infrastructure/adapters/ProductAdapter';
 import PgProvider from '../../src/infrastructure/storage/PostgreProvider';
-import container from '../../src/shared/dependency-container/container';
-import dependencyEnum from '../../src/shared/dependency-container/dependency.enum';
+import container from '../../src/app/dependency-container/container';
+import dependencyEnum from '../../src/app/dependency-container/dependency.enum';
 
 import productSeeds from '../../db/dev-seeds/data/products.json';
 import RedisProvider from '../../src/infrastructure/storage/RedisProvider';

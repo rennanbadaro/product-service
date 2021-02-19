@@ -1,7 +1,7 @@
 import grpc from 'grpc';
 import env from 'env-var';
 
-import ProductController from '../../app/controllers/ProductController';
+import ProductController from '../controllers/ProductController';
 import FetchProductsWithDiscount from '../../domain/product/use-cases/FetchProductsWithDiscount';
 import { ProductAdapter } from '../../infrastructure/adapters/ProductAdapter';
 import { DiscountServiceClient, IDiscountServiceClient } from '../../infrastructure/proto/discount_grpc_pb';
@@ -11,7 +11,7 @@ import Dependencies from './dependency.enum';
 import { GrpcClient } from '../../infrastructure/grpc/GrpcClient';
 import UserLogin from '../../domain/user/use-cases/UserLogin';
 import { UserAdapter, UserOutPort } from '../../infrastructure/adapters/UserAdapter';
-import UserController from '../../app/controllers/UserController';
+import UserController from '../controllers/UserController';
 import { AuthService, IAuthService } from '../../domain/auth/AuthService';
 import { UserRepository } from '../../infrastructure/repositories/UserRepository';
 import RedisProvider from '../../infrastructure/storage/RedisProvider';

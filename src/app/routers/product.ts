@@ -1,7 +1,7 @@
 import Router from '@koa/router';
 
-import dependencyContainer from '../../shared/dependency-container/container';
-import dependencyEnum from '../../shared/dependency-container/dependency.enum';
+import dependencyContainer from '../dependency-container/container';
+import dependencyEnum from '../dependency-container/dependency.enum';
 import ProductController from '../controllers/ProductController';
 import authMiddleware from '../middlewares/auth';
 

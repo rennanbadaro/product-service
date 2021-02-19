@@ -1,8 +1,8 @@
 import Router from '@koa/router';
 import Knex from 'knex';
 import { Context } from 'koa';
-import container from '../../shared/dependency-container/container';
-import DependencyEnum from '../../shared/dependency-container/dependency.enum';
+import container from '../dependency-container/container';
+import DependencyEnum from '../dependency-container/dependency.enum';
 
 const router = new Router({
   prefix: '/health',
