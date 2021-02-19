@@ -47,7 +47,7 @@ npm run test:integration
 
 ## Proto files
 
-The project already contains generated code. The source for the protobuffer files lives in the repo [proto-graal](https://github.com/rennanbadaro/proto-graal). In case there's an update in proto graal that should have an impact on this project, the code can be regerated any time by running the shell script `build-protos.sh`. It will clone the lastest version of proto-graal and generate the code inside the proper directory.
+The project already contains generated code. The source for the protobuffer files lives in the repo [proto-graal](https://github.com/rennanbadaro/proto-graal). In case there's an update in proto graal that should have an impact on this project, the code can be regenerated any time by running the shell script `build-protos.sh`. It will clone the latest version of proto-graal and generate the code inside the proper directory.
 
 
 ## Development Notes
