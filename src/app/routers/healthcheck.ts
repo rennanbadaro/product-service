@@ -1,6 +1,7 @@
 import Router from '@koa/router';
-import Knex from 'knex';
 import { Context } from 'koa';
+import PostgreProvider from '../../infrastructure/storage/PostgreProvider';
+import RedisProvider from '../../infrastructure/storage/RedisProvider';
 import container from '../dependency-container/container';
 import DependencyEnum from '../dependency-container/dependency.enum';
 
@@ -9,20 +10,21 @@ const router = new Router({
 });
 
 router.get('/', async (ctx: Context) => {
-  try {
-    const dbProvider = container.get(DependencyEnum.POSTGRE_PROVIDER);
+  const dbProvider = container.get(DependencyEnum.POSTGRE_PROVIDER) as PostgreProvider;
+  const cacheProvider = container.get(DependencyEnum.REDIS_PROVIDER) as RedisProvider;
 
-    // @ts-ignore
-    await dbProvider.getConnection()
+  const cacheConnected = cacheProvider.getConnection().status === 'ready';
+
+  const dbConnected = Boolean(
+    await dbProvider
+      .getConnection()
       .select(1)
-      .from('product');
+      .from('products')
+      .catch(err => console.error(err))
+  );
 
-    ctx.status = 200;
-  } catch (err) {
-    console.error(err);
-
-    ctx.status = 503;
-  }
+  ctx.body = { cacheConnected, dbConnected };
+  ctx.status = cacheConnected && dbConnected ? 200 : 503;
 });
 
 export default router;
