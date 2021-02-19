@@ -4,7 +4,7 @@ services:
   api:
     build:
       context: .
-      dockerfile: dev-Dockerfile
+      dockerfile: Dockerfile.dev
     restart: always
     env_file: .env
     container_name: hasher-store-product-service

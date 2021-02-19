@@ -23,6 +23,7 @@ In case you just want Docker Compose to start Postgres and Redis so you can run 
 ```sh
 cp .env.example .env
 npm run dev:docker:infra
+npm i
 npm run migrations:up
 npm run dev:seed:run
 ```
