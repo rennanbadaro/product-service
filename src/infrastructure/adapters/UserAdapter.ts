@@ -6,7 +6,7 @@ import { IUserRepository } from '../repositories/UserRepository';
 import RedisProvider from '../storage/RedisProvider';
 
 interface UserOutPort {
-  setValidToken(token: string): void;
+  setValidToken(token: string): Promise<void>;
   fetchByEmailAndPassword(
     email: string,
     password: string
@@ -25,8 +25,8 @@ class UserAdapter implements UserOutPort {
     return this.repository.fetchByEmailAndPassword(email, password);
   }
 
-  setValidToken(token: string) {
-    return this.cacheConn.set(token, 'ok', 'EX', RedisProvider.defaultTtl);
+  async setValidToken(token: string) {
+    await this.cacheConn.set(token, 'ok', 'EX', RedisProvider.defaultTtl);
   }
 }
 

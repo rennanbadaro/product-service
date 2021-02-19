@@ -8,7 +8,7 @@ import RedisProvider from '../../src/infrastructure/storage/RedisProvider';
 import GrpcStubServer from './mock/GrpcStubServer';
 
 let adapter: ProductAdapter;
-jest.setTimeout(60000)
+
 describe('ProductAdapter', () => {
   beforeEach(() => {
     adapter = container.get(dependencyEnum.PRODUCT_ADAPTER) as ProductAdapter;
