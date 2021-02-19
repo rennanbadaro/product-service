@@ -6,6 +6,23 @@
 	},
 	"item": [
 		{
+			"name": "Health Check",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{hs_product_service_host}}/health",
+					"host": [
+						"{{hs_product_service_host}}"
+					],
+					"path": [
+						"health"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "User Login",
 			"event": [
 				{
