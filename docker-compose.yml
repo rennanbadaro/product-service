@@ -30,7 +30,3 @@ services:
     env_file: .env
     network_mode: host
     container_name: hasher-store-redis
-
-networks:
-  hasher-store-network:
-    driver: bridge
