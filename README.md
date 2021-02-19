@@ -45,6 +45,11 @@ Integration tests:
 npm run test:integration
 ```
 
+## Proto files
+
+The project already contains generated code. The source for the protobuffer files lives in the repo [proto-graal](https://github.com/rennanbadaro/proto-graal). In case there's an update in proto graal that should have an impact on this project, the code can be regerated any time by running the shell script `build-protos.sh`. It will clone the lastest version of proto-graal and generate the code inside the proper directory.
+
+
 ## Development Notes
 
 After putting some thoughts about the service responsibility and expected capabilities, a hexagonal/ports and adapters _based_ architecture was chosen for the project. The proposed architecture seemed a good fit to isolate the application layers, specially regarding the domain and infrastructure.
