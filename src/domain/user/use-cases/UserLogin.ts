@@ -1,5 +1,6 @@
 import { UserOutPort } from '../../../infrastructure/adapters/UserAdapter';
 import { IAuthService } from '../../auth/AuthService';
+import UserNotFoundError from '../errors/UserNotFoundError';
 
 class UserLogin {
   constructor(
@@ -14,7 +15,7 @@ class UserLogin {
     );
 
     if (!user) {
-      throw new Error('User not found');
+      throw new UserNotFoundError();
     }
 
     const accessToken = this.authService.generateToken(user);
