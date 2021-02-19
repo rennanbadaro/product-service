@@ -1,6 +1,3 @@
-import grpc from 'grpc';
-import { promisify } from 'util';
-
 import Discount from '../../domain/product/Discount';
 import { IDiscountServiceClient } from '../proto/discount_grpc_pb';
 import { GetDiscountRequest, GetDiscountResponse } from '../proto/discount_pb';
