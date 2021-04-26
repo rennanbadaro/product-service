@@ -48,20 +48,3 @@ npm run test:integration
 ## Proto files
 
 The project already contains generated code. The source for the protobuffer files lives in the repo [proto-graal](https://github.com/rennanbadaro/proto-graal). In case there's an update in proto graal that should have an impact on this project, the code can be regenerated any time by running the shell script `build-protos.sh`. It will clone the latest version of proto-graal and generate the code inside the proper directory.
-
-
-## Development Notes
-
-After putting some thoughts about the service responsibility and expected capabilities, a hexagonal/ports and adapters _based_ architecture was chosen for the project. The proposed architecture seemed a good fit to isolate the application layers, specially regarding the domain and infrastructure.
-
-With the designed solution, the service should have two main infrastructure components: storage and gRPC. So the idea is to isolate them inside the infra layer and expose an interface (Port) with declarative methods that abstracts the interaction with these components. The domain (use case) can then reach the outside world knowing this interface and having its implementation (Adapter) take care of the hard lifting.
-
-This describes the initial strategy to build the service and based on that the project could grow progressively from the business logic and interface definitions up to its implementations and addition of application components exposing the service as a HTTP server.
-
-The development was broken into tasks registered in a [Trello board](trello-link).
-
-### Important Decisions
-
-- ___Authentication:___ Although the project has no explicit requirement for authentication, it was the approach chosen to define the user ID for the GET /product request. No body or query string should be passed on this request but the products list should be personalized for a given user, so an authentication flow based on JWT was implemented so when the GET request is made a bearer token is passed so the application can define the user through the token instrospection.
-
-- ___Tests:___ The application has very few business rules, it relies heavily on infrastructure. So to make better use of time/energy the focus was kept on guaranteeing the integration with infrastructure components(DB, cache and gRPC). More unit and integration tests are intended to be added in the future.
