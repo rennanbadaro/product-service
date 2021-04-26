@@ -1,4 +1,4 @@
-# Product Service
+## Product Service
 
 Service for listing products.
 
